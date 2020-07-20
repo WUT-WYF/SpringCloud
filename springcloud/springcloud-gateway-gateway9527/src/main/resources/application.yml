@@ -1,0 +1,41 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: springcloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  # 开启从注册中心动态创建路由的功能，利用微服务名称进行路由
+      routes:
+        - id: payment_routh_get  # 路由id
+#          uri: http://localhost:8001  # 匹配后提供服务的路由地址
+          uri: lb://springcloud-payment-service
+          predicates:
+            - Path=/payment/get/**    # 断言，匹配路径
+#            - After=2020-04-13T10:55:26.274+08:00[Asia/Shanghai]
+#            - Cookie=username,cloudfly
+#            - Header=X-Request-Id,\d+
+#            - Host=**.cloudfly.com
+#            - Method=GET
+#            - Query=username,\d+
+
+        - id: payment_routh_create
+#          uri: http://localhost:8001
+          uri: lb://springcloud-payment-service
+          predicates:
+            - Path=/payment/create
+
+
+eureka:
+  instance:
+    # 服务名称
+    instance-id: springcloud-gateway-service
+  client:
+    # 将本服务注册进 eureka Server
+    register-with-eureka: true
+    # 是否从 eureka Server 获得已有注册信息
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001:7001/eureka

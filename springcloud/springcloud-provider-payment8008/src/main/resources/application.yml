@@ -1,0 +1,15 @@
+server:
+  port: 8008
+
+spring:
+  application:
+    name: springcloud-payment-service
+
+eureka:
+  client:
+    # 将本服务注册进 eureka Server
+    register-with-eureka: true
+    # 是否从 eureka Server 获得已有注册信息
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://eureka7001:7001/eureka

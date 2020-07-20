@@ -1,0 +1,19 @@
+server:
+  port: 92
+
+spring:
+  application:
+    name: springcloud-alibaba-order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.254:8848
+    sentinel:
+      transport:
+        dashboard: 192.168.1.254:8080
+        port: 8719
+
+# 激活 Sentinel 对 Feign 的支持
+feign:
+  sentinel:
+    enabled: true

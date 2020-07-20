@@ -1,0 +1,32 @@
+server:
+  port: 8801
+
+spring:
+  application:
+    name: com.cloudfly.springcloud-stream-provider-service
+  cloud:
+    stream:
+      binders:  # 配置绑定的消息中间件的信息
+        defaultRabbit:  # 消息中间件配置名称
+          type: rabbit  # 消息组件类型
+          environment:  # 配置消息中间件环境
+            spring:
+              rabbitmq:
+                host: 192.168.1.254
+                port: 5672
+                username: guest
+                password: guest
+      bindings:  # 服务整合处理
+        output:  # 通道
+          destination: studyExchange  # 通道名
+          content-type: application/json  # 消息类型
+          binder: defaultRabbit
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 2  # 心跳时间间隔（默认30s）
+    lease-expiration-duration-in-seconds: 5  #
+    instance-id: send8801   # 信息列表时显示主机名称
+    prefer-ip-address: true  # 访问路径变为IP地址
